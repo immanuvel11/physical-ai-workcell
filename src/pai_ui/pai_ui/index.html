@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workcell Console</title>
+<style>
+  :root {
+    --bg: #f4f3ef; --panel: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --line: #e4e3df;
+    --accent: #2a78d6; --good: #0f8a3c; --warn: #b26b00; --bad: #c62828;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #121211; --panel: #1a1a19; --ink: #f4f4f2; --ink-2: #b9b8b0; --line: #2c2c2a;
+            --accent: #3987e5; --good: #34b766; --warn: #e0a030; --bad: #ef5350; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; flex: 1; }
+  #safety { padding: 6px 12px; border-radius: 6px; font-weight: 600; color: #fff; background: var(--ink-2); }
+  #safety.NORMAL { background: var(--good); } #safety.SLOW { background: var(--warn); }
+  #safety.STOP, #safety.ESTOP { background: var(--bad); }
+  button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+           padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  #estop { background: var(--bad); color: #fff; border-color: var(--bad); font-weight: 700; padding: 10px 16px; }
+  main { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; padding: 16px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin: 0 0 8px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  #instruction { flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px;
+                 background: var(--bg); color: var(--ink); font: inherit; }
+  .examples button { font-size: 12px; padding: 4px 8px; color: var(--ink-2); }
+  .cams { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cams img { width: 100%; border-radius: 6px; background: var(--bg); aspect-ratio: 4/3; object-fit: cover; }
+  .cams figcaption { font-size: 12px; color: var(--ink-2); }
+  ol { margin: 0; padding-left: 20px; } li.cur { font-weight: 700; color: var(--accent); }
+  #state { font-weight: 700; } .muted { color: var(--ink-2); }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  td, th { text-align: left; padding: 3px 6px; border-bottom: 1px solid var(--line); }
+  #log { font: 12px ui-monospace, monospace; white-space: pre-wrap; color: var(--ink-2); margin: 0; }
+  .stack { display: grid; gap: 16px; align-content: start; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Physical AI workcell</h1>
+  <span id="safety">SAFETY ?</span>
+  <button id="estop" title="Emergency stop">E-STOP</button>
+  <button id="reset">Reset</button>
+</header>
+<main>
+  <div class="stack">
+    <section>
+      <h2>Instruction</h2>
+      <div class="row">
+        <input id="instruction" placeholder="e.g. Put the red cube in the blue bin" autocomplete="off">
+        <button class="primary" id="send">Run</button>
+        <button id="cancel">Cancel</button>
+      </div>
+      <div class="row examples" style="margin-top:8px">
+        <button>Put the red cube in the blue bin.</button>
+        <button>Sort the parts by colour.</button>
+        <button>Prepare a kit: place the yellow block and the blue bolt on the kit tray.</button>
+        <button>That crimson cube goes with the other blue things.</button>
+      </div>
+    </section>
+    <section>
+      <h2>Cameras</h2>
+      <div class="cams">
+        <figure style="margin:0"><img id="cam" alt="waiting for camera" onerror="this.style.visibility='hidden'" onload="this.style.visibility='visible'"><figcaption>Live overhead RGB-D camera</figcaption></figure>
+        <figure style="margin:0"><img id="perc" alt="no perception run yet" onerror="this.style.visibility='hidden'" onload="this.style.visibility='visible'"><figcaption>Last perception (segments + labels)</figcaption></figure>
+      </div>
+      <div class="row" style="margin-top:8px"><button id="walk">Simulate a co-worker walking up</button></div>
+    </section>
+  </div>
+  <div class="stack">
+    <section>
+      <h2>Task</h2>
+      <div><span id="state">IDLE</span> <span class="muted" id="planner"></span></div>
+      <div id="message" class="muted"></div>
+      <div id="plan" style="margin-top:8px"></div>
+      <div id="result" style="margin-top:8px"></div>
+    </section>
+    <section>
+      <h2>Scene graph</h2>
+      <div id="held" class="muted"></div>
+      <table><thead><tr><th>id</th><th>category</th><th>position (m)</th><th>size (cm)</th></tr></thead><tbody id="objects"></tbody></table>
+      <div id="relations" class="muted" style="margin-top:6px;font-size:12px"></div>
+    </section>
+    <section><h2>Log</h2><pre id="log"></pre></section>
+  </div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const post = (path, body) => fetch(path, {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                         body: JSON.stringify(body || {})});
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+function send() {
+  const t = $('instruction').value.trim();
+  if (t) post('/api/run', {instruction: t});
+}
+$('send').onclick = send;
+$('instruction').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+document.querySelectorAll('.examples button').forEach(b => b.onclick = () => { $('instruction').value = b.textContent; });
+$('estop').onclick = () => post('/api/estop');
+$('reset').onclick = () => post('/api/reset');
+$('cancel').onclick = () => post('/api/cancel');
+$('walk').onclick = () => post('/api/walk_in');
+
+async function tick() {
+  try {
+    const s = await (await fetch('/api/state')).json();
+    const sf = s.safety || {};
+    $('safety').className = sf.state || '';
+    $('safety').textContent = `${sf.state || '?'}${sf.distance != null ? ' · person ' + sf.distance + ' m' : ''} · speed ${Math.round((sf.speed_scale ?? 0) * 100)}%`;
+    const t = s.task || {};
+    $('state').textContent = t.state || 'IDLE';
+    $('planner').textContent = t.planner ? `(${t.planner} planner)` : '';
+    $('message').textContent = t.message || '';
+    const steps = (t.plan && t.plan.steps) || [];
+    $('plan').innerHTML = steps.length ? '<ol>' + steps.map((st, i) =>
+      `<li class="${i === t.step ? 'cur' : ''}">${esc(st.skill)}(${esc(st.object_id || st.target_id || st.named_target)}) <span class="muted">${esc(st.why)}</span></li>`).join('') + '</ol>'
+      : (t.plan && t.plan.question ? `<b>Question:</b> ${esc(t.plan.question)}` : '');
+    const r = s.last_result;
+    $('result').innerHTML = r ? `<b style="color:var(--${r.success ? 'good' : 'bad'})">${r.success ? 'SUCCESS' : 'NOT DONE'}</b> ${esc(r.summary)}<br>
+      <span class="muted">planning ${r.planning_time}s · first motion ${r.time_to_first_motion}s · total ${r.total_time}s · re-plans ${r.replans}</span>` : '';
+    const sc = s.scene || {};
+    $('held').textContent = sc.held ? `In gripper: ${sc.held}` : '';
+    $('objects').innerHTML = (sc.objects || []).map(o =>
+      `<tr><td>${esc(o.id)}</td><td>${esc(o.category)}</td><td>${o.xyz.join(', ')}</td><td>${o.size_cm.join(' × ')}</td></tr>`).join('');
+    $('relations').textContent = (sc.relations || []).join(' · ');
+    $('log').textContent = (s.log || []).join('\n');
+  } catch (e) { $('safety').textContent = 'console offline'; }
+}
+setInterval(tick, 500); tick();
+setInterval(() => { $('cam').src = '/api/camera.jpg?t=' + Date.now(); $('perc').src = '/api/perception.jpg?t=' + Date.now(); }, 700);
+</script>
+</body>
+</html>

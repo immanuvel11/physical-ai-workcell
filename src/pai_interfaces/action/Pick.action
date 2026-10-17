@@ -1,0 +1,9 @@
+# Pick an object. Give object_id (scene-graph id) OR an explicit pose+size (used by the rule-based baseline).
+string object_id
+geometry_msgs/Pose pose
+geometry_msgs/Vector3 size
+---
+bool success
+string message
+---
+string stage

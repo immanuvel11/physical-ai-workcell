@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>pai_ui</name>
+  <version>0.1.0</version>
+  <description>Browser operator console: instruction box, live camera, plan, scene graph, safety, e-stop.</description>
+  <maintainer email="m.immanuvel.11@gmail.com">Immanuvel M</maintainer>
+  <license>MIT</license>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>pai_interfaces</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

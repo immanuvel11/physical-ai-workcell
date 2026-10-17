@@ -1,0 +1,39 @@
+# Default workcell layout. World frame = robot base; table top is z = 0.
+# make_world.py turns this into worlds/workcell.sdf. The same file is the
+# ground truth the benchmark (Phase 6) scores against.
+
+camera:
+  pose: [0.45, 0.0, 1.20, 0.0, 1.5708, 0.0]   # x y z roll pitch yaw (looking straight down)
+  width: 640
+  height: 480
+  hfov: 1.05                                 # rad
+  rate: 10                                   # Hz
+
+light:
+  direction: [-0.4, 0.2, -0.9]
+  diffuse: [0.9, 0.9, 0.9]
+
+fixtures:   # static receptacles
+  - {name: blue_bin,  type: bin,  size: [0.18, 0.18, 0.08], color: [0.10, 0.25, 0.85], pose: [0.30, 0.45, 0.0, 0.0]}
+  - {name: green_bin, type: bin,  size: [0.18, 0.18, 0.08], color: [0.10, 0.65, 0.20], pose: [0.55, 0.45, 0.0, 0.0]}
+  - {name: kit_tray,  type: tray, size: [0.26, 0.18, 0.025], color: [0.55, 0.55, 0.58], pose: [0.45, -0.45, 0.0, 0.0]}
+
+objects:    # movable parts: pose = [x, y, yaw] on the table
+  - {name: red_cube,      shape: box,      size: [0.04, 0.04, 0.04],  color: [0.85, 0.10, 0.10], mass: 0.05, pose: [0.45,  0.05, 0.3]}
+  - {name: blue_bolt,     shape: cylinder, size: [0.015, 0.07],       color: [0.15, 0.30, 0.90], mass: 0.04, pose: [0.58, -0.12, 0.0]}
+  - {name: yellow_block,  shape: box,      size: [0.06, 0.03, 0.03],  color: [0.95, 0.80, 0.10], mass: 0.04, pose: [0.36, -0.16, 0.8]}
+  - {name: green_nut,     shape: cylinder, size: [0.02, 0.02],        color: [0.20, 0.70, 0.25], mass: 0.02, pose: [0.62,  0.10, 0.0]}
+
+  # Object pool: parked off-table (out of camera view) until a scenario brings them in.
+  # They are never mentioned in code - used to test unseen objects and clutter.
+  - {name: orange_box,      shape: box,      size: [0.05, 0.035, 0.035], color: [0.95, 0.45, 0.05], mass: 0.05, pose: [0.0, 0.0, 0.0], parked: true}
+  - {name: purple_cylinder, shape: cylinder, size: [0.018, 0.05],        color: [0.55, 0.20, 0.75], mass: 0.04, pose: [0.0, 0.0, 0.0], parked: true}
+  - {name: cyan_block,      shape: box,      size: [0.045, 0.03, 0.03],  color: [0.10, 0.75, 0.80], mass: 0.04, pose: [0.0, 0.0, 0.0], parked: true}
+  - {name: red_cylinder,    shape: cylinder, size: [0.016, 0.045],       color: [0.80, 0.08, 0.08], mass: 0.03, pose: [0.0, 0.0, 0.0], parked: true}
+
+obstacles:  # things the arm must avoid (not to be picked unless asked)
+  - {name: coffee_cup, shape: cylinder, size: [0.04, 0.10], color: [0.95, 0.95, 0.95], mass: 0.20, pose: [0.50, 0.18, 0.0]}
+
+human:      # simulated co-worker (moved by pai_safety/human_sim)
+  name: worker
+  park: [2.2, -1.6]

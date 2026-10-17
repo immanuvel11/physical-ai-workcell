@@ -1,0 +1,14 @@
+string instruction
+bool dry_run                 # plan only, do not move
+---
+bool success
+string summary
+string plan_json
+float32 planning_time        # seconds spent in the planner (all calls)
+float32 time_to_first_motion # seconds from goal to first skill command
+float32 total_time
+int32 replans
+---
+string state
+int32 current_step
+string message

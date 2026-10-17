@@ -1,0 +1,10 @@
+# Place the held object into/onto a receptacle (target_id), or at target_point if target_id is empty.
+string target_id
+geometry_msgs/Point target_point
+float32 surface_z            # with target_point: height of the surface the part is released onto
+float32 rim_z                # with target_point: top of any walls around it (0 if none)
+---
+bool success
+string message
+---
+string stage

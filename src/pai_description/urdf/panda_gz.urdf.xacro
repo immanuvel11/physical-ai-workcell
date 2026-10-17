@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!--
+  Franka Panda for Gazebo Fortress + ros2_control.
+
+  Kinematics and meshes come from moveit_resources_panda_description (unchanged).
+  That URDF ships without <inertial> blocks, which Gazebo needs, so the links are
+  re-declared here with approximate masses/inertias. The arm is position-controlled,
+  so these values only need to be physically plausible, not identified.
+
+  The robot base (panda_link0) is fixed to the world origin, which is also the
+  table-top surface (z = 0) in worlds/workcell.sdf.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+
+  <!-- Path to the ros2_control controllers YAML; passed in by pai_bringup's launch file -->
+  <xacro:arg name="controllers_file" default=""/>
+
+  <xacro:property name="mesh" value="package://moveit_resources_panda_description/meshes"/>
+  <xacro:property name="pi_2" value="1.57079632679"/>
+
+  <!-- Box-approximated inertia: mass m, CoM offset xyz, principal moments i -->
+  <xacro:macro name="inertia" params="m xyz:='0 0 0' ixx iyy izz">
+    <inertial>
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <mass value="${m}"/>
+      <inertia ixx="${ixx}" ixy="0" ixz="0" iyy="${iyy}" iyz="0" izz="${izz}"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="panda_link" params="name mesh_name m xyz ixx iyy izz">
+    <link name="${name}">
+      <visual><geometry><mesh filename="${mesh}/visual/${mesh_name}.dae"/></geometry></visual>
+      <collision><geometry><mesh filename="${mesh}/collision/${mesh_name}.stl"/></geometry></collision>
+      <xacro:inertia m="${m}" xyz="${xyz}" ixx="${ixx}" iyy="${iyy}" izz="${izz}"/>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="panda_joint" params="name parent child xyz rpy lower upper effort velocity">
+    <joint name="${name}" type="revolute">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${lower}" upper="${upper}" effort="${effort}" velocity="${velocity}"/>
+      <dynamics damping="0.5" friction="0.0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ===================== Links & joints ===================== -->
+  <link name="world"/>
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="panda_link0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:panda_link name="panda_link0" mesh_name="link0" m="3.06" xyz="-0.025 0 0.06"  ixx="0.012" iyy="0.015" izz="0.014"/>
+  <xacro:panda_link name="panda_link1" mesh_name="link1" m="2.34" xyz="0 -0.03 -0.07"  ixx="0.020" iyy="0.020" izz="0.008"/>
+  <xacro:panda_link name="panda_link2" mesh_name="link2" m="2.36" xyz="0 -0.07 0.03"   ixx="0.020" iyy="0.008" izz="0.020"/>
+  <xacro:panda_link name="panda_link3" mesh_name="link3" m="2.38" xyz="0.04 0.02 -0.05" ixx="0.015" iyy="0.015" izz="0.007"/>
+  <xacro:panda_link name="panda_link4" mesh_name="link4" m="2.43" xyz="-0.04 0.05 0.03" ixx="0.015" iyy="0.007" izz="0.015"/>
+  <xacro:panda_link name="panda_link5" mesh_name="link5" m="3.50" xyz="0 0.04 -0.11"  ixx="0.030" iyy="0.025" izz="0.008"/>
+  <xacro:panda_link name="panda_link6" mesh_name="link6" m="1.47" xyz="0.06 -0.01 0.01" ixx="0.004" iyy="0.006" izz="0.006"/>
+  <xacro:panda_link name="panda_link7" mesh_name="link7" m="0.45" xyz="0 0 0.08"     ixx="0.002" iyy="0.002" izz="0.001"/>
+
+  <xacro:panda_joint name="panda_joint1" parent="panda_link0" child="panda_link1" xyz="0 0 0.333"      rpy="0 0 0"        lower="-2.9671" upper="2.9671" effort="87" velocity="2.3925"/>
+  <xacro:panda_joint name="panda_joint2" parent="panda_link1" child="panda_link2" xyz="0 0 0"          rpy="-${pi_2} 0 0" lower="-1.8326" upper="1.8326" effort="87" velocity="2.3925"/>
+  <xacro:panda_joint name="panda_joint3" parent="panda_link2" child="panda_link3" xyz="0 -0.316 0"     rpy="${pi_2} 0 0"  lower="-2.9671" upper="2.9671" effort="87" velocity="2.3925"/>
+  <xacro:panda_joint name="panda_joint4" parent="panda_link3" child="panda_link4" xyz="0.0825 0 0"     rpy="${pi_2} 0 0"  lower="-3.1416" upper="0.0873" effort="87" velocity="2.3925"/>
+  <xacro:panda_joint name="panda_joint5" parent="panda_link4" child="panda_link5" xyz="-0.0825 0.384 0" rpy="-${pi_2} 0 0" lower="-2.9671" upper="2.9671" effort="12" velocity="2.8710"/>
+  <xacro:panda_joint name="panda_joint6" parent="panda_link5" child="panda_link6" xyz="0 0 0"          rpy="${pi_2} 0 0"  lower="-0.0873" upper="3.8223" effort="12" velocity="2.8710"/>
+  <xacro:panda_joint name="panda_joint7" parent="panda_link6" child="panda_link7" xyz="0.088 0 0"      rpy="${pi_2} 0 0"  lower="-2.9671" upper="2.9671" effort="12" velocity="2.8710"/>
+
+  <link name="panda_link8"/>
+  <joint name="panda_joint8" type="fixed">
+    <parent link="panda_link7"/>
+    <child link="panda_link8"/>
+    <origin xyz="0 0 0.107" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Hand -->
+  <link name="panda_hand">
+    <visual><geometry><mesh filename="${mesh}/visual/hand.dae"/></geometry></visual>
+    <collision><geometry><mesh filename="${mesh}/collision/hand.stl"/></geometry></collision>
+    <xacro:inertia m="0.73" xyz="0 0 0.03" ixx="0.0025" iyy="0.0005" izz="0.0023"/>
+  </link>
+  <joint name="panda_hand_joint" type="fixed">
+    <parent link="panda_link8"/>
+    <child link="panda_hand"/>
+    <origin xyz="0 0 0" rpy="0 0 -0.785398163397"/>
+  </joint>
+
+  <!-- Tool centre point: midway between the fingertips. Skills plan for this frame. -->
+  <link name="panda_tcp"/>
+  <joint name="panda_tcp_joint" type="fixed">
+    <parent link="panda_hand"/>
+    <child link="panda_tcp"/>
+    <origin xyz="0 0 0.1034" rpy="0 0 0"/>
+  </joint>
+
+  <link name="panda_leftfinger">
+    <visual><geometry><mesh filename="${mesh}/visual/finger.dae"/></geometry></visual>
+    <collision><geometry><mesh filename="${mesh}/collision/finger.stl"/></geometry></collision>
+    <xacro:inertia m="0.015" xyz="0 0.01 0.02" ixx="2.4e-6" iyy="2.4e-6" izz="7.5e-7"/>
+  </link>
+  <link name="panda_rightfinger">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 3.14159265359"/>
+      <geometry><mesh filename="${mesh}/visual/finger.dae"/></geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 3.14159265359"/>
+      <geometry><mesh filename="${mesh}/collision/finger.stl"/></geometry>
+    </collision>
+    <xacro:inertia m="0.015" xyz="0 -0.01 0.02" ixx="2.4e-6" iyy="2.4e-6" izz="7.5e-7"/>
+  </link>
+  <joint name="panda_finger_joint1" type="prismatic">
+    <parent link="panda_hand"/>
+    <child link="panda_leftfinger"/>
+    <origin xyz="0 0 0.0584" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0.0" upper="0.04" effort="20" velocity="0.2"/>
+    <dynamics damping="1.0"/>
+  </joint>
+  <joint name="panda_finger_joint2" type="prismatic">
+    <parent link="panda_hand"/>
+    <child link="panda_rightfinger"/>
+    <origin xyz="0 0 0.0584" rpy="0 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0.0" upper="0.04" effort="20" velocity="0.2"/>
+    <dynamics damping="1.0"/>
+    <mimic joint="panda_finger_joint1"/>
+  </joint>
+
+  <!-- ===================== ros2_control ===================== -->
+  <xacro:macro name="arm_joint_if" params="name init">
+    <joint name="${name}">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">${init}</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </xacro:macro>
+
+  <ros2_control name="PandaGazeboSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <!-- Start in the MoveIt "ready" pose -->
+    <xacro:arm_joint_if name="panda_joint1" init="0.0"/>
+    <xacro:arm_joint_if name="panda_joint2" init="-0.785"/>
+    <xacro:arm_joint_if name="panda_joint3" init="0.0"/>
+    <xacro:arm_joint_if name="panda_joint4" init="-2.356"/>
+    <xacro:arm_joint_if name="panda_joint5" init="0.0"/>
+    <xacro:arm_joint_if name="panda_joint6" init="1.571"/>
+    <xacro:arm_joint_if name="panda_joint7" init="0.785"/>
+    <!-- Fingers start at 0.035, not the 0.04 limit: a velocity-driven DART joint parked
+         exactly on its limit can stick there in Gazebo Fortress. -->
+    <xacro:arm_joint_if name="panda_finger_joint1" init="0.035"/>
+    <joint name="panda_finger_joint2">
+      <param name="mimic">panda_finger_joint1</param>
+      <param name="multiplier">1</param>
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.035</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(arg controllers_file)</parameters>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="panda_leftfinger"><mu1>1.5</mu1><mu2>1.5</mu2></gazebo>
+  <gazebo reference="panda_rightfinger"><mu1>1.5</mu1><mu2>1.5</mu2></gazebo>
+
+  <!-- Simulated grasp: one DetachableJoint per pickable object. Finger-friction grasping in
+       Gazebo is unreliable, so once the fingers close on a part the skill server welds it to
+       the hand via /pai/grasp/<object>/attach and releases it via .../detach.
+       The hand is fixed-joint-lumped into panda_link7 when Gazebo converts the URDF.
+       On real hardware this block is simply absent: friction holds the part. -->
+  <xacro:arg name="grasp_objects" default=""/>
+  <xacro:macro name="grasp_plugins" params="objs">
+    <xacro:if value="${objs}">
+      <gazebo>
+        <plugin filename="ignition-gazebo-detachable-joint-system" name="ignition::gazebo::systems::DetachableJoint">
+          <parent_link>panda_link7</parent_link>
+          <child_model>${objs[0]}</child_model>
+          <child_link>link</child_link>
+          <attach_topic>/pai/grasp/${objs[0]}/attach</attach_topic>
+          <detach_topic>/pai/grasp/${objs[0]}/detach</detach_topic>
+        </plugin>
+      </gazebo>
+      <xacro:grasp_plugins objs="${objs[1:]}"/>
+    </xacro:if>
+  </xacro:macro>
+  <xacro:grasp_plugins objs="${'$(arg grasp_objects)'.split()}"/>
+
+</robot>

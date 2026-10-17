@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>pai_moveit_config</name>
+  <version>0.1.0</version>
+  <description>MoveIt 2 configuration for the Panda in the Physical AI Gazebo workcell.</description>
+  <maintainer email="m.immanuvel.11@gmail.com">Immanuvel M</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>pai_description</exec_depend>
+  <exec_depend>moveit_ros_move_group</exec_depend>
+  <exec_depend>moveit_kinematics</exec_depend>
+  <exec_depend>moveit_planners_ompl</exec_depend>
+  <exec_depend>moveit_simple_controller_manager</exec_depend>
+  <exec_depend>moveit_configs_utils</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

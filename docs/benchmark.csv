@@ -1,0 +1,77 @@
+system,condition,task,trial,success,goals_met,goals,reported_success,collateral_moves,clarified,planning_time,time_to_first_motion,total_time,replans,plan_steps,safety_stops,instruction,summary
+rule,nominal,single,0,1,1,1,1,,0,0.0,1.45,35.2,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,nominal,single,1,1,1,1,1,,0,0.0,1.38,32.4,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,nominal,sort,0,1,2,2,1,,0,0.0,1.19,61.9,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,nominal,sort,1,1,2,2,1,,0,0.0,1.43,58.8,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,nominal,kit,0,1,2,2,1,,0,0.0,1.27,59.9,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,nominal,kit,1,1,2,2,1,,0,0.0,1.96,56.0,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,pose,single,0,1,1,1,1,,0,0.0,1.04,29.2,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,pose,single,1,1,1,1,1,,0,0.0,1.41,28.5,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,pose,sort,0,1,2,2,1,,0,0.0,1.09,54.2,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,pose,sort,1,1,2,2,1,,0,0.0,2.23,61.1,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,pose,kit,0,1,2,2,1,,0,0.0,1.2,66.3,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,pose,kit,1,1,2,2,1,,0,0.0,1.46,56.7,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,lighting,single,0,1,1,1,1,,0,0.0,1.29,27.0,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,lighting,single,1,1,1,1,1,,0,0.0,1.17,31.9,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,lighting,sort,0,1,2,2,1,,0,0.0,1.31,59.9,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,lighting,sort,1,1,2,2,1,,0,0.0,1.53,65.7,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,lighting,kit,0,1,2,2,1,,0,0.0,1.34,54.4,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,lighting,kit,1,1,2,2,1,,0,0.0,1.11,52.8,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,clutter,single,0,1,1,1,1,,0,0.0,1.44,34.9,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,clutter,single,1,1,1,1,1,,0,0.0,3.7,40.3,0,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,clutter,sort,0,1,2,2,1,,0,0.0,1.6,63.4,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,clutter,sort,1,1,2,2,1,,0,0.0,1.29,53.7,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,clutter,kit,0,0,0,2,0,,0,0.0,1.14,75.8,4,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,FAILED: giving up after 3 re-plans; last error: descending to grasp: straight-line path blocked (76% feasible)
+rule,clutter,kit,1,1,2,2,1,,0,0.0,1.53,57.3,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,disturbance,single,0,1,1,1,1,,0,0.0,1.39,52.2,1,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 1 re-plan(s)"
+rule,disturbance,single,1,1,1,1,1,,0,0.0,1.1,114.3,1,2,0,Put the red cube in the blue bin.,"done: 1 part(s) placed, 1 re-plan(s)"
+rule,disturbance,sort,0,1,2,2,1,,0,0.0,1.11,76.3,1,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 1 re-plan(s)"
+rule,disturbance,sort,1,1,2,2,1,,0,0.0,1.18,77.5,1,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,"done: 2 part(s) placed, 1 re-plan(s)"
+rule,disturbance,kit,0,1,2,2,1,,0,0.0,1.39,71.8,1,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 1 re-plan(s)"
+rule,disturbance,kit,1,1,2,2,1,,0,0.0,1.23,78.3,1,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,"done: 2 part(s) placed, 1 re-plan(s)"
+rule,novel,novel_object,0,1,1,1,1,,0,0.0,1.3,27.8,0,2,0,Drop the orange box into the green bin.,"done: 1 part(s) placed, 0 re-plan(s)"
+rule,novel,novel_object,1,0,0,1,0,,0,0.0,1.29,76.6,4,2,0,Drop the orange box into the green bin.,FAILED: giving up after 3 re-plans; last error: descending to grasp: straight-line path blocked (97% feasible)
+rule,novel,novel_pair,0,1,2,2,1,,0,0.0,1.35,68.2,0,4,0,The purple cylinder and the cyan block belong on the kit tray.,"done: 2 part(s) placed, 0 re-plan(s)"
+rule,novel,novel_pair,1,1,2,2,1,,0,0.0,1.21,87.8,1,3,0,The purple cylinder and the cyan block belong on the kit tray.,"done: 2 part(s) placed, 1 re-plan(s)"
+rule,novel,paraphrase,0,0,0,1,0,,1,0.0,0.0,1.5,0,0,0,That crimson cube goes with the other blue things.,"NEEDS_CLARIFICATION: I could not work out which part should go where. Please say e.g. ""put the red cube in the blue bin""."
+rule,novel,paraphrase,1,0,0,1,0,,1,0.0,0.0,1.3,0,0,0,That crimson cube goes with the other blue things.,"NEEDS_CLARIFICATION: I could not work out which part should go where. Please say e.g. ""put the red cube in the blue bin""."
+rule,novel,paraphrase_kit,0,0,0,2,0,,1,0.0,0.0,1.3,0,0,0,"Load the bolt and the yellow bar onto the kitting tray, please.","NEEDS_CLARIFICATION: There are 2 cylinders (blue_cylinder_2, green_cylinder). Which one?"
+rule,novel,paraphrase_kit,1,0,0,2,0,,1,0.0,0.0,1.1,0,0,0,"Load the bolt and the yellow bar onto the kitting tray, please.","NEEDS_CLARIFICATION: There are 2 cylinders (blue_cylinder, green_cylinder_2). Which one?"
+baseline,nominal,single,0,1,1,1,1,,0,0.0,0.0,26.2,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: program completed
+baseline,nominal,single,1,1,1,1,1,,0,0.0,0.0,26.5,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: program completed
+baseline,nominal,sort,0,1,2,2,1,,0,0.0,0.0,51.3,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: program completed
+baseline,nominal,sort,1,1,2,2,1,,0,0.0,0.0,53.1,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: program completed
+baseline,nominal,kit,0,1,2,2,1,,0,0.0,0.0,57.1,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: program completed
+baseline,nominal,kit,1,1,2,2,1,,0,0.0,0.0,62.7,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: program completed
+baseline,pose,single,0,0,0,1,0,,0,0.0,0.0,76.1,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: descending to grasp: straight-line path blocked (55% feasible)
+baseline,pose,single,1,0,0,1,0,,0,0.0,0.0,83.8,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,pose,sort,0,0,0,2,0,,0,0.0,0.0,27.4,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,pose,sort,1,0,0,2,0,,0,0.0,0.0,15.2,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,pose,kit,0,0,0,2,0,,0,0.0,0.0,18.3,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: descending to grasp: straight-line path blocked (69% feasible)
+baseline,pose,kit,1,0,0,2,0,,0,0.0,0.0,15.0,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,lighting,single,0,0,0,1,0,,0,0.0,0.0,14.9,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,lighting,single,1,0,0,1,0,,0,0.0,0.0,36.8,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: descending to grasp: straight-line path blocked (76% feasible)
+baseline,lighting,sort,0,0,0,2,0,,0,0.0,0.0,27.7,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,lighting,sort,1,0,0,2,0,,0,0.0,0.0,14.8,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of green_cylinder
+baseline,lighting,kit,0,0,0,2,0,,0,0.0,0.0,18.5,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: descending to grasp: straight-line path blocked (77% feasible)
+baseline,lighting,kit,1,0,0,2,0,,0,0.0,0.0,15.2,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,clutter,single,0,0,0,1,0,,0,0.0,0.0,42.1,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: moving above part: the arm did not reach the target (blocked?)
+baseline,clutter,single,1,0,0,1,0,coffee_cup,0,0.0,0.0,63.0,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,clutter,sort,0,0,0,2,0,,0,0.0,0.0,15.2,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,clutter,sort,1,0,0,2,0,,0,0.0,0.0,16.0,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,clutter,kit,0,0,0,2,0,,0,0.0,0.0,19.5,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: descending to grasp: straight-line path blocked (97% feasible)
+baseline,clutter,kit,1,0,0,2,0,,0,0.0,0.0,15.1,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,single,0,0,0,1,0,,0,0.0,0.0,16.8,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,single,1,0,0,1,0,,0,0.0,0.0,15.0,0,2,0,Put the red cube in the blue bin.,P1 red cube to blue bin: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,sort,0,0,0,2,0,,0,0.0,0.0,15.1,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,sort,1,0,0,2,0,,0,0.0,0.0,15.0,0,4,0,Sort the parts by colour: blue parts go in the blue bin and green parts in the green bin.,P2 sort by colour: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,kit,0,0,0,2,0,,0,0.0,0.0,15.0,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,disturbance,kit,1,0,0,2,0,,0,0.0,0.0,15.7,0,4,0,Prepare a kit: place the yellow block and the blue bolt on the kit tray.,P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part
+baseline,novel,novel_object,0,0,0,1,0,,0,0.0,0.0,0.0,0,0,0,Drop the orange box into the green bin.,FAILED: no taught program matches this instruction
+baseline,novel,novel_object,1,0,0,1,0,,0,0.0,0.0,0.0,0,0,0,Drop the orange box into the green bin.,FAILED: no taught program matches this instruction
+baseline,novel,novel_pair,0,0,0,2,0,,0,0.0,0.0,0.0,0,0,0,The purple cylinder and the cyan block belong on the kit tray.,FAILED: no taught program matches this instruction
+baseline,novel,novel_pair,1,0,0,2,0,,0,0.0,0.0,0.0,0,0,0,The purple cylinder and the cyan block belong on the kit tray.,FAILED: no taught program matches this instruction
+baseline,novel,paraphrase,0,0,0,1,0,,0,0.0,0.0,0.0,0,0,0,That crimson cube goes with the other blue things.,FAILED: no taught program matches this instruction
+baseline,novel,paraphrase,1,0,0,1,0,,0,0.0,0.0,0.0,0,0,0,That crimson cube goes with the other blue things.,FAILED: no taught program matches this instruction
+baseline,novel,paraphrase_kit,0,0,0,2,0,,0,0.0,0.0,18.3,0,4,0,"Load the bolt and the yellow bar onto the kitting tray, please.",P3 build kit: stopped: descending to grasp: straight-line path blocked (74% feasible)
+baseline,novel,paraphrase_kit,1,0,0,2,0,,0,0.0,0.0,15.4,0,4,0,"Load the bolt and the yellow bar onto the kitting tray, please.",P3 build kit: stopped: grasp missed: no part between the fingers at the expected position of taught_part

@@ -1,0 +1,19 @@
+# colcon build outputs
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets (the API key lives in ~/.config/pai, never in the repo)
+*api_key*
+.env
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
